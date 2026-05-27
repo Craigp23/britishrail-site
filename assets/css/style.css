@@ -246,12 +246,16 @@ body {
     width: 100%;
 }
 
+/* Bottom Info Grid Panels */
 .grid-card {
     background-color: var(--br-white);
     padding: 30px;
     border-radius: 6px;
     box-shadow: 0 4px 6px rgba(0,0,0,0.02);
     border-top: 4px solid var(--logo-blue);
+    
+    /* FIX: Prevents the fixed header from covering the card title on anchor jumps */
+    scroll-margin-top: 110px; 
 }
 
 .grid-card h3 {
