@@ -1,0 +1,312 @@
+/* ==========================================================================
+   BRITISH RAIL PORTAL - MAIN PRODUCTION STYLESHEET
+   ========================================================================== */
+
+/* 1. Global Reset & Variables */
+:root {
+    --logo-blue: #002e99;     /* Deep royal blue from lettering */
+    --logo-red: #a8081b;      /* Deeper, rich crimson from logo flag shadow */
+    --br-dark: #111625;       /* Deep navy-charcoal for text readability */
+    --br-light: #f5f7fa;      /* Clean, modern light gray background */
+    --br-white: #ffffff;
+    --font-stack: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: var(--font-stack);
+    background-color: var(--br-light);
+    color: var(--br-dark);
+    line-height: 1.6;
+    padding-top: 95px; /* Fits header height dynamically on desktop */
+}
+
+/* 2. Header & Navigation */
+.site-header {
+    background-color: var(--br-white);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+.header-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+}
+
+.logo {
+    flex-shrink: 0;
+}
+
+.logo img {
+    height: 65px; 
+    width: auto;
+    display: block;
+    max-width: 100%;
+    transition: transform 0.2s ease;
+}
+
+.logo img:hover {
+    transform: scale(1.02);
+}
+
+.main-nav {
+    display: flex;
+    gap: 20px;
+}
+
+.main-nav a {
+    text-decoration: none;
+    color: var(--br-dark);
+    font-weight: 500;
+    transition: color 0.2s;
+}
+
+.main-nav a:hover, .main-nav a.active {
+    color: var(--logo-blue);
+    border-bottom: 2px solid var(--logo-blue);
+    padding-bottom: 4px;
+}
+
+/* 3. Hero Section Split-Screen */
+.hero-section {
+    background-color: var(--br-white);
+    padding: 60px 20px;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+
+.hero-split-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    align-items: flex-end; 
+    justify-content: space-between;
+    gap: 40px;
+    text-align: left;
+}
+
+.hero-text-side {
+    flex: 1.2;
+}
+
+.hero-text-side h1 {
+    font-size: 2.8rem;
+    color: var(--logo-blue);
+    margin-bottom: 20px;
+    line-height: 1.2;
+}
+
+.hero-lead {
+    font-size: 1.2rem;
+    color: #555;
+    margin-bottom: 35px;
+}
+
+/* Desktop sizing for ticket image */
+.hero-ticket-img {
+        order: 3; 
+        width: 65%;           /* RESTORES FLUID SCALING: Dynamic percentage based on mobile screen width */
+        max-width: 290px;     /* Prevents it from getting too large on tablet widths */
+        min-width: 200px;     /* Prevents it from shrinking to nothing on tiny phones */
+        height: auto;
+        display: block;
+        margin: 0 auto;       /* Clean centering layout baseline */
+        position: relative;        
+        z-index: 5;           /* Guarantees it sits on top of the buttons layer */
+        transform: translateY(22px); /* PERFECT SIT: Drops the image down to smoothly hug the buttons */
+    }
+
+/* Call-To-Action Button Components */
+.cta-container {
+    display: flex;
+    justify-content: flex-start;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.btn {
+    display: inline-block;
+    padding: 12px 28px;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: transform 0.1s, background-color 0.2s, box-shadow 0.2s;
+}
+
+.btn:active {
+    transform: scale(0.98);
+}
+
+.btn-primary {
+    background-color: var(--logo-red);
+    color: var(--br-white);
+    box-shadow: 0 4px 12px rgba(168, 8, 27, 0.2);
+}
+
+.btn-primary:hover {
+    background-color: #8c0617;
+    box-shadow: 0 4px 15px rgba(168, 8, 27, 0.3);
+}
+
+.btn-secondary {
+    background-color: #e2e8f0;
+    color: var(--br-dark);
+}
+
+.btn-secondary:hover {
+    background-color: #cbd5e1;
+}
+
+/* 4. How It Works - Steps Grid */
+.how-it-works {
+    max-width: 1100px;
+    margin: 80px auto 20px auto;
+    padding: 0 20px;
+}
+
+.how-it-works h2 {
+    color: var(--logo-blue);
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.section-lead {
+    text-align: center;
+    color: #555;
+    margin-bottom: 40px;
+    font-size: 1.1rem;
+}
+
+.steps-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+}
+
+.step-card {
+    background: var(--br-white);
+    padding: 20px;
+    border-radius: 6px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+}
+
+.step-number {
+    color: var(--logo-blue);
+    display: block;
+    font-size: 1.8rem;
+    font-weight: 800;
+    margin-bottom: 4px;
+    line-height: 1;
+}
+
+.step-title {
+    display: block;
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+    color: var(--br-dark);
+}
+
+.highlight-text {
+    color: var(--logo-red);
+    font-weight: 600;
+}
+
+/* 5. Manual Ad Placement Controller */
+.portal-ad-container {
+    width: 100%;
+    max-width: 1100px;
+    margin: 50px auto 10px auto;
+    padding: 0 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 140px;
+}
+
+/* 6. Bottom Informational Card Grid (Desktop Clean Slate) */
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+    max-width: 1100px;
+    margin: 30px auto 20px auto;
+    padding: 0 20px;
+    width: 100%;
+}
+
+.grid-card {
+    background-color: var(--br-white);
+    padding: 30px;
+    border-radius: 6px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+    border-top: 4px solid var(--logo-blue);
+}
+
+.grid-card h3 {
+    font-size: 1.3rem;
+    margin-bottom: 15px;
+}
+
+.grid-card p {
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.card-link {
+    text-decoration: none;
+    color: var(--logo-blue);
+    font-weight: 600;
+    transition: color 0.2s;
+}
+
+.card-link:hover {
+    color: var(--logo-red);
+}
+
+/* 7. Site Footer */
+.site-footer {
+    width: 100%;
+    max-width: 1100px;
+    margin: 60px auto 20px auto;
+    padding: 30px 20px;
+    text-align: center;
+    font-size: 0.85rem;
+    color: #888;
+    border-top: 1px solid rgba(0,0,0,0.05);
+    clear: both;
+}
+
+/* ==========================================================================
+   8. RESPONSIVE BREAKPOINTS (930px Layout Shift Optimization)
+   ========================================================================== */
+
+@media (max-width: 930px) {
+    body { 
+        padding-top: 150px; 
+    } 
+    
+    .hero-section {
+        background-color: var(--br-white); 
+        padding: 40px 20px;
+        border-bottom: 1px solid rgba(0,0,0,0.05);
+    }
+    
+    .header-container { 
+        flex-direction: column; 
+        gap: 15px; 
+        text-align: center; 
+        padding: 15px 10px
