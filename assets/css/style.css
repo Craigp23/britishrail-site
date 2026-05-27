@@ -55,6 +55,7 @@ body {
     width: auto;
     display: block;
     max-width: 100%;
+    object-fit: contain; /* FIX: Guarantees the logo can never be squashed horizontally */
     transition: transform 0.2s ease;
 }
 
@@ -350,7 +351,7 @@ body {
         min-width: 210px;     /* Prevents it from shrinking to nothing on small devices */
         height: auto;
         display: block;
-        margin: 0 auto 5px auto; /* Negative bottom margin drops the image down over the buttons */
+        margin: 0 auto 5px auto;
         position: relative;        
         z-index: 5;           /* Keeps the ticket layer on top of the button borders */
     } 
