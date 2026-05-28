@@ -20,10 +20,10 @@
 
 body {
     font-family: var(--font-stack);
-    background-color: var(--br-light);
     color: var(--br-dark);
     line-height: 1.6;
-    padding-top: 95px; /* Fits header height dynamically on desktop viewports */
+    padding-top: 95px;
+    background-color: var(--br-light);
 }
 
 /* 2. Header & Navigation */
@@ -38,7 +38,6 @@ body {
 }
 
 .header-container {
-    width: 100%;
     max-width: 1100px;
     margin: 0 auto;
     display: flex;
@@ -56,7 +55,7 @@ body {
     width: auto;
     display: block;
     max-width: 100%;
-    object-fit: contain;
+    object-fit: contain; /* FIX: Guarantees the logo can never be squashed horizontally */
     transition: transform 0.2s ease;
 }
 
@@ -83,18 +82,34 @@ body {
 }
 
 /* 3. Hero Section Split-Screen */
+/* 1. The main Hero Box container */
+.hero-section {
+    position: relative; /* Essential: keeps the flag layer locked inside the borders */
+    background-color: var(--logo-blue); /* Solid, crisp brand blue baseline */
+    padding: 60px 30px;
+    color: var(--br-white);
+    text-align: center;
+    border-radius: 8px;
+    margin-bottom: 40px;
+    overflow: hidden; /* Clips the flag edges nicely to the rounded corners */
+}
+
+
 .hero-section {
     position: relative;
-    background-color: var(--br-white);
-    padding: 60px 20px;
-    border-bottom: 1px solid rgba(0,0,0,0.05);
+    background-color: var(--logo-blue);
+    padding: 60px 30px;
+    color: var(--br-white);
+    text-align: center;
+    border-radius: 8px;
+    margin-bottom: 40px;
 }
 
 .hero-split-container {
     max-width: 1100px;
     margin: 0 auto;
     display: flex;
-    align-items: center; 
+    align-items: flex-end; 
     justify-content: space-between;
     gap: 40px;
     text-align: left;
@@ -117,45 +132,15 @@ body {
     margin-bottom: 35px;
 }
 
-/* Homepage Specific Ticket Layout Configurations */
-.hero-ticket-link {
+/* Desktop sizing for ticket image */
+.hero-ticket-img {
     flex: 0.8;
     max-width: 40%;
-    display: inline-block;
-    text-decoration: none;
+    height: auto;
+    border-radius: 6px;
     margin-bottom: -60px; 
     z-index: 10;
     position: relative;
-}
-
-.hero-ticket-img {
-    width: 100%;
-    height: auto;
-    border-radius: 6px;
-    display: block;
-    transition: transform 0.2s ease-in-out, filter 0.2s ease;
-}
-
-.hero-ticket-link:hover .hero-ticket-img {
-    transform: scale(1.02);
-    filter: brightness(1.02);
-}
-
-/* Subpage Graphic Split-Screen Layout Controllers */
-.hero-image-side {
-    flex: 0.8;
-    max-width: 40%;
-    display: block;
-}
-
-.subpage-hero-img {
-    width: 100%;
-    height: auto;
-    max-height: 280px;
-    object-fit: cover;
-    border-radius: 6px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.06);
-    display: block;
 }
 
 /* Call-To-Action Button Components */
@@ -168,7 +153,7 @@ body {
 
 .btn {
     display: inline-block;
-    padding: 12px 24px;
+    padding: 12px 28px;
     font-weight: 600;
     text-decoration: none;
     border-radius: 4px;
@@ -231,7 +216,6 @@ body {
     padding: 20px;
     border-radius: 6px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.02);
-    border-left: 4px solid var(--logo-blue);
 }
 
 .step-number {
@@ -268,23 +252,32 @@ body {
     min-height: 140px;
 }
 
-/* 6. Bottom Informational Card Grid */
+/* 6. Bottom Informational Card Grid (Desktop Clean Slate) */
 .info-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 25px;
-    max-width: 1100px;
-    margin: 30px auto 20px auto;
-    padding: 0 20px;
-    width: 100%;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    padding: 40px 20px;
+    border-radius: 8px;
+    
+    /* THE WATERMARK TRICK: Layers a white tint over the dark image asset */
+    background-image: 
+        linear-gradient(rgba(244, 246, 249, 0.94), rgba(244, 246, 249, 0.94)), 
+        url('../images/flag-watermark.png');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
 }
 
+/* Bottom Info Grid Panels */
 .grid-card {
     background-color: var(--br-white);
     padding: 30px;
     border-radius: 6px;
     box-shadow: 0 4px 6px rgba(0,0,0,0.02);
-    border-left: 5px solid var(--logo-blue);
+    border-top: 4px solid var(--logo-blue);
+    
+    /* FIX: Prevents the fixed header from covering the card title on anchor jumps */
     scroll-margin-top: 110px; 
 }
 
@@ -322,23 +315,32 @@ body {
     clear: both;
 }
 
-
 /* ==========================================================================
-   8. RESPONSIVE BREAKPOINTS (Calibrated for clean 967px Layout Shifts)
+   8. RESPONSIVE BREAKPOINTS (930px Layout Shift Optimization)
    ========================================================================== */
 
-/* Universal adjustments below 967px (Both Portrait and Landscape) */
-@media (max-width: 967px) {
+@media (max-width: 930px) {
     body { 
-        padding-top: 0px; 
+        padding-top: 150px; 
     } 
     
-    .site-header {
-        position: relative; 
-        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-        width: 100%;
+    .hero-section {
+        background-color: var(--br-white); 
+        padding: 40px 20px;
+        border-bottom: 1px solid rgba(0,0,0,0.05);
+    }
+    
+    .header-container { 
+        flex-direction: column; 
+        gap: 15px; 
+        text-align: center; 
+        padding: 15px 10px;
     }
 
+    .main-nav {
+        gap: 15px;
+    }
+    
     .hero-split-container { 
         display: flex;
         flex-direction: column; 
@@ -356,7 +358,7 @@ body {
         margin-bottom: 15px;
         text-align: center;
         width: 100%;
-        font-size: 2.2rem;
+        font-size: 2.4rem;
     }
 
     .hero-lead {
@@ -366,128 +368,58 @@ body {
         width: 100%;
         max-width: 650px;
         line-height: 1.5;
-        font-size: 1.1rem;
     }
 
-    .hero-ticket-link, .hero-image-side {
+/* RESTORED: Fluid responsive scaling for the ticket asset */
+    .hero-ticket-img {
         order: 3; 
-        width: 65%;           
-        max-width: 290px;     
-        min-width: 200px;     
-        margin: 0 auto 15px auto;
+        width: 65%;           /* Restores fluid scaling based on viewport width */
+        max-width: 290px;     /* Prevents it from ballooning on mid-size screens */
+        min-width: 210px;     /* Prevents it from shrinking to nothing on small devices */
+        height: auto;
+        display: block;
+        margin: 0 auto 5px auto;
+        position: relative;        
+        z-index: 5;           /* Keeps the ticket layer on top of the button borders */
     } 
 
-    .hero-image-side {
-        max-width: 100%;
-    }
-
+    /* ADJUSTED: Centers and spaces the buttons perfectly underneath the ticket overlay */
     .cta-container { 
         order: 4; 
         justify-content: center; 
         width: 100%;
-        margin-top: 5px;     
-        margin-bottom: 15px;
+        margin-top: 10px;     /* Prevents the buttons from getting swallowed up completely */
+        margin-bottom: 20px;
     }
 }
 
-/* Explicit Mobile Portrait / Tablet Upright Layouts */
-@media (max-width: 967px) and (orientation: portrait) {
-    .header-container { 
-        display: flex;
-        flex-direction: column; 
-        align-items: center;
-        justify-content: center;
-        gap: 15px; 
-        text-align: center; 
-        padding: 15px 10px;
-        width: 100%;
+@media (max-width: 480px) {
+    body {
+        padding-top: 170px;
     }
-
-    .logo {
-        display: block;
-        width: 100%;
-        text-align: center;
+    .hero-text-side h1 { 
+        font-size: 2rem; 
     }
-
-    .logo img {
-        height: 65px;
-        margin: 0 auto;
-    }
-
     .main-nav {
-        display: flex;
+        flex-wrap: wrap;
         justify-content: center;
-        align-items: center;
-        gap: 20px;
-        width: 100%;
-        margin: 5px auto 0 auto;
+        gap: 10px;
     }
-}
-
-/* Explicit Mobile Landscape / Tablet Sideways Layouts */
-@media (max-width: 967px) and (orientation: landscape) {
-    .header-container {
-        display: flex;
-        flex-direction: row !important; /* Forces row placement over conflicting rules */
-        justify-content: space-between !important;
-        align-items: center;
-        padding: 8px 20px;
-        width: 100%;
-        gap: 20px;
-    }
-    
-    .logo {
-        display: flex;
-        align-items: center;
-        width: auto;
-        text-align: left;
-    }
-
-    .logo img {
-        height: 42px; /* Scales down logo height to protect screen real estate */
-        margin: 0;
-    }
-
-    .main-nav {
-        display: flex;
-        flex-direction: row;
-        justify-content: flex-end;
-        align-items: center;
-        gap: 20px;
-        width: auto;
-        margin: 0;
-    }
-
     .main-nav a {
         font-size: 0.95rem;
-        white-space: nowrap; /* Forces links onto one line so they don't break look */
-    }
-
-    .hero-section {
-        padding: 25px 20px;
-    }
-}
-
-/* Ultra-small phone specific optimizations */
-@media (max-width: 480px) {
-    .hero-text-side h1 { 
-        font-size: 1.8rem; 
-    }
-    .main-nav {
-        gap: 12px;
-    }
-    .main-nav a {
-        font-size: 0.9rem;
     }
     .cta-container {
         flex-direction: column;
         width: 100%;
         align-items: center;
-        gap: 10px;
+        gap: 12px;
     }
     .btn {
         width: 100%;
-        max-width: 280px;
+        max-width: 290px;
         text-align: center;
+    }
+    .hero-ticket-img {
+        max-width: 260px; 
     }
 }
